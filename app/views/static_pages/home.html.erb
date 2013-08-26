@@ -1,6 +1,23 @@
-<div class="center hero-unit">
-  <h1>Welcome to the Journalisical</h1>
+<% if signed_in? %>
+  <div class="row ">
+    <aside class="span4">
+      <section>
+        <%= render 'shared/user_info' %>
+      </section>
+      <section>
+        <%= render 'shared/post_form' %>
+      </section>
+    </aside>
+    <div class="span8">
+      <h3>Post Feed</h3>
+      <%= render 'shared/feed' %>
+    </div>
+  </div>
+<% else %>
+  <div class="center hero-unit">
+    <h1>Welcome to the Journalisical</h1>
 
-  <%= link_to "View Posts!", view_posts_path, class: "btn btn-large btn-primary" %>
-  <%= link_to "Write a post!", new_post_path, class: "btn btn-large btn-primary" %>
-</div>
+    <%= link_to "View Posts!", view_posts_path, class: "btn btn-large btn-primary" %>
+    <%= link_to "Write a post!", new_post_path, class: "btn btn-large btn-primary" %>
+  </div>
+<% end %>

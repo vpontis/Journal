@@ -1,17 +1,19 @@
 Journal::Application.routes.draw do
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
+  resources :posts, only: [:create, :destroy]
+
   match '/signup', to: 'users#new', via: 'get'
   match '/signin', to: 'sessions#new', via: 'get'
   match '/signout', to: 'sessions#destroy', via: 'delete'
-
-  get "users/new"
-  root 'static_pages#home'
-  get "static_pages/home"
-  get "static_pages/about"
-  resources :posts
   match '/view_posts', to: 'posts#index', via: 'get'
   match '/new_post', to: 'posts#new', via: 'get'
+
+  get "users/new"
+  get "static_pages/home"
+  get "static_pages/about"
+
+  root 'static_pages#home'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
