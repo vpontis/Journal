@@ -6,11 +6,19 @@ class PostsController < ApplicationController
     @post = current_user.posts.build(post_params)
     if @post.save
       flash[:success] = "Post created!"
-      redirect_to root_url
+      render 'show'
     else
       @feed_items = []
       render 'static_pages/home'
     end
+  end
+
+  def new
+    @post = Post.new
+  end
+
+  def edit
+    @post = Post.find(params[:id])
   end
 
   def destroy
@@ -20,6 +28,10 @@ class PostsController < ApplicationController
 
   def index
     @posts = Post.where("user_id=?", current_user.id).paginate(page: params[:page])
+  end
+
+  def show
+    @post = Post.find(params[:id])
   end
 
   private
