@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :signed_in_user
+  before_action :signed_in_user, only: [:create, :destroy]
   before_action :correct_user, only: :destroy
 
   def create
@@ -16,6 +16,10 @@ class PostsController < ApplicationController
   def destroy
     @post.destroy
     redirect_to root_url
+  end
+
+  def index
+    @posts = Post.where("user_id=?", current_user.id).paginate(page: params[:page])
   end
 
   private
